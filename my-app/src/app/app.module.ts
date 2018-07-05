@@ -1,3 +1,4 @@
+import { RouterModule, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -8,6 +9,7 @@ import { HomeModule } from './home/home.module';
 import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ItemsModule } from './items/items.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,18 @@ import { ItemsModule } from './items/items.module';
     BrowserModule,
     CoreModule,
     SharedModule,
-    HomeModule,
-    PageNotFoundModule,
     NgbModule.forRoot(),
-    ItemsModule
+    RouterModule,
+    AppRoutingModule,
+    HomeModule,
+    ItemsModule,
+    PageNotFoundModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) {
+    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
+}

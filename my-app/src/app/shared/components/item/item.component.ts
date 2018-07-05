@@ -15,4 +15,8 @@ export class ItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  public changeState(etat: State): void {
+    this.item.state = etat;
+  }
+
 }

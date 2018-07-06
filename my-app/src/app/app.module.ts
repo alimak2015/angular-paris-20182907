@@ -10,6 +10,19 @@ import { PageNotFoundModule } from './page-not-found/page-not-found.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ItemsModule } from './items/items.module';
 import { AppRoutingModule } from './app-routing.module';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment.firebase';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './core/services/in-memory-data.service';
+import { HttpClientModule } from '@angular/common/http';
+
+
+// the second parameter 'fr' is optional
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -24,9 +37,16 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     HomeModule,
     ItemsModule,
-    PageNotFoundModule
+    PageNotFoundModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+    InMemoryDataService, { dataEncapsulation: false }
+
+    ),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr' } ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
